@@ -1,4 +1,5 @@
 require 'simplecov'
 SimpleCov.start
 
-require './lib'
+require './lib/node'
+require './lib/binary_search_tree'
