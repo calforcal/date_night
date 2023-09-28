@@ -43,4 +43,16 @@ RSpec.describe BinarySearchTree do
       expect(tree.include?(72)).to eq(false)
     end
   end
+
+  describe "#depth_of" do
+    it "can find the depth of a number in the tree" do
+      tree.insert(61, "Bill & Ted's Excellent Adventure")
+      tree.insert(16, "Johnny English")
+      tree.insert(92, "Sharknado 3")
+      tree.insert(50, "Hannibal Buress: Animal Furnace")
+
+      expect(tree.depth_of(92)).to eq(1)
+      expect(tree.depth_of(50)).to eq(2)
+    end
+  end
 end
