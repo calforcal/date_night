@@ -1,12 +1,34 @@
 require "spec_helper"
 
 RSpec.describe BinarySearchTree do
+  let!(:tree) { BinarySearchTree.new }
   describe "initialization" do
     it "exists" do
-      tree = BinarySearchTree.new
       expect(tree).to be_a BinarySearchTree
-      expect(tree.left_node).to eq(nil)
-      expect(tree.right_node).to eq(nil)
+    end
+  end
+
+  describe "#insert" do
+    it "can insert a node to the tree and return the tree level back" do
+      expect(tree.insert(61, "Bill & Ted's Excellent Adventure")).to eq(0)
+      expect(tree.insert(16, "Johnny English")).to eq(1)
+      expect(tree.insert(92, "Sharknado 3")).to eq(1)
+      expect(tree.insert(50, "Hannibal Buress: Animal Furnace")).to eq(2)
+    end
+  end
+
+  describe "#find_bottom" do
+    it "can find the bottom of the tree" do
+      new_node = Node.new(45, "Newest Node")
+
+      tree.insert(61, "Bill & Ted's Excellent Adventure")
+      tree.insert(16, "Johnny English")
+      tree.insert(92, "Sharknado 3")
+      tree.insert(50, "Hannibal Buress: Animal Furnace")
+
+      expect(tree.find_bottom(tree.head, new_node)).to be_a Node
+      expect(tree.find_bottom(tree.head, new_node).score).to eq(50)
+      expect(tree.find_bottom(tree.head, new_node).title).to eq("Hannibal Buress: Animal Furnace")
     end
   end
 end
