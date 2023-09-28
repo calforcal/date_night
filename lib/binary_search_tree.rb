@@ -28,14 +28,20 @@ class BinarySearchTree
 
   def include?(num)
     current_node = @head
+    @level = 0
     while current_node != nil
       if current_node.score == num
         return true
       else
         current_node.score > num ? current_node = current_node.left_node : current_node = current_node.right_node
+        @level += 1
       end
     end
     return false
+  end
+
+  def depth_of(num)
+    include?(num) ? @level : nil
   end
 
   def find_bottom(current_node, new_node)
