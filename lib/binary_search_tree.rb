@@ -3,6 +3,8 @@ class BinarySearchTree
   def initialize
     @head = nil
     @level = 0
+    @max_num = 0
+    @min_num = 0
   end
 
   def insert(score, title)
@@ -42,6 +44,26 @@ class BinarySearchTree
 
   def depth_of(num)
     include?(num) ? @level : nil
+  end
+
+  def max
+    @max_num = @head.score
+    current_node = @head
+    while current_node.right_node != nil
+      max_node = current_node.right_node
+      current_node = current_node.right_node
+    end
+    return {max_node.title => max_node.score}
+  end
+
+  def min
+    @min_num = @head.score
+    current_node = @head
+    while current_node.left_node != nil
+      min_node = current_node.left_node
+      current_node = current_node.left_node
+    end
+    return {min_node.title => min_node.score}
   end
 
   def find_bottom(current_node, new_node)
