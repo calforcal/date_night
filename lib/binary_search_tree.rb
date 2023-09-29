@@ -66,6 +66,10 @@ class BinarySearchTree
     return {min_node.title => min_node.score}
   end
 
+  def sort
+    collect_nodes(@head)    
+  end
+
   def find_bottom(current_node, new_node)
     while current_node != nil
       if current_node.score > new_node.score
@@ -79,5 +83,14 @@ class BinarySearchTree
       end
     end
     return last_node
+  end
+
+  def collect_nodes(node)
+    node_array = []
+    if node.nil? then return else end
+    node_array << { node.title => node.score }
+    if node.left_node.nil? then node_array else node_array.prepend(collect_nodes(node.left_node)) end 
+    if node.right_node.nil? then node_array else node_array << collect_nodes(node.right_node) end
+    node_array.flatten
   end
 end
