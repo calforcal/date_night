@@ -60,5 +60,34 @@ RSpec.describe BinarySearchTree do
         expect(tree.min).to eq({"Johnny English"=>16})
       end
     end
+
+    describe "#sort" do
+      it "can sort the binary tree and return it as an array of hashes" do
+        expect(tree.sort).to eq([{"Johnny English"=>16},
+                                 {"Hannibal Buress: Animal Furnace"=>50},
+                                 {"Bill & Ted's Excellent Adventure"=>61},
+                                 {"Sharknado 3"=>92}])
+
+        tree.insert(98, "Animals United")
+        tree.insert(58, "Armageddon")
+        tree.insert(36, "Bill & Ted's Bogus Journey")
+        tree.insert(93, "Bill & Ted's Excellent Adventure")
+        tree.insert(86, "Charlie's Angels")
+        tree.insert(38, "Charlie's Country")
+        tree.insert(69, "Collateral Damage")
+
+        expect(tree.sort).to eq([{ "Johnny English"=>16 },
+                                 { "Bill & Ted's Bogus Journey"=>36 },
+                                 { "Charlie's Country"=> 38 },
+                                 { "Hannibal Buress: Animal Furnace"=>50 },
+                                 { "Armageddon"=>58 },
+                                 { "Bill & Ted's Excellent Adventure"=>61 },
+                                 { "Collateral Damage"=>69 },
+                                 { "Charlie's Angels"=>86 },
+                                 { "Sharknado 3"=>92 },
+                                 { "Bill & Ted's Excellent Adventure"=>93 },
+                                 { "Animals United"=>98 }])
+      end
+    end
   end
 end
