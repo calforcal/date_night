@@ -89,5 +89,22 @@ RSpec.describe BinarySearchTree do
                                  { "Animals United"=>98 }])
       end
     end
+
+    describe "#load" do
+      it "can take in a txt file through the load feature" do
+        expect(tree.load('/data/movies_spec.txt')).to eq(6)
+
+        expect(tree.sort).to eq([{"I Love You Phillip Morris"=>10},
+                                 {"Johnny English"=>16},
+                                 {"Experimenter"=>22},
+                                 {"Hannibal Buress: Comedy Camisado"=>34},
+                                 {"Love"=>41},
+                                 {"Hannibal Buress: Animal Furnace"=>50},
+                                 {"Bill & Ted's Excellent Adventure"=>61},
+                                 {"Meet My Valentine"=>63},
+                                 {"French Dirty"=>84},
+                                 {"Sharknado 3"=>92}])
+      end
+    end
   end
 end
