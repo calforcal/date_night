@@ -3,3 +3,4 @@ SimpleCov.start
 
 require './lib/node'
 require './lib/binary_search_tree'
+require 'pry'
