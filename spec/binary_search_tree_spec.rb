@@ -123,4 +123,23 @@ RSpec.describe BinarySearchTree do
       end
     end
   end
+
+  # NEW TEST BLOCK TO STOP BEFORE EACH
+
+  describe "#health" do
+    #health is broken into three different parts: Score, Num of Child Nodes, Percent Nodes that are its children
+    it "will return the health of the tree" do
+      tree.insert(98, "Animals United")
+      tree.insert(58, "Armageddon")
+      tree.insert(36, "Bill & Ted's Bogus Journey")
+      tree.insert(93, "Bill & Ted's Excellent Adventure")
+      tree.insert(86, "Charlie's Angels")
+      tree.insert(38, "Charlie's Country")
+      tree.insert(69, "Collateral Damage")
+
+      expect(tree.health(0)).to eq([[98, 7, 100]])
+      expect(tree.health(1)).to eq([[58, 6, 85]])
+      expect(tree.health(2)).to eq([[36, 2, 28], [93, 3, 42]])
+    end
+  end
 end
