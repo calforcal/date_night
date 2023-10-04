@@ -70,6 +70,19 @@ class BinarySearchTree
     collect_nodes(@head)    
   end
 
+  def load(file)
+    loaded = File.readlines(file).map(&:chomp)
+    seperated = loaded.map { |element| element.split(", ") }
+    parsed = seperated.map { |element| [element[0].to_i, element[1]] }
+    count = parsed.length
+
+    parsed.each do |pair|
+      if include?(pair[0]) then count -= 1 else insert(pair[0], pair[1]) end
+    end
+
+    return count
+  end
+
   def find_bottom(current_node, new_node)
     while current_node != nil
       if current_node.score > new_node.score
