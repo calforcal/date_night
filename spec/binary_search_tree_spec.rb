@@ -128,7 +128,7 @@ RSpec.describe BinarySearchTree do
 
   describe "#health" do
     #health is broken into three different parts: Score, Num of Child Nodes, Percent Nodes that are its children
-    it "will return the health of the tree" do
+    before(:each) do
       tree.insert(98, "Animals United")
       tree.insert(58, "Armageddon")
       tree.insert(36, "Bill & Ted's Bogus Journey")
@@ -136,10 +136,29 @@ RSpec.describe BinarySearchTree do
       tree.insert(86, "Charlie's Angels")
       tree.insert(38, "Charlie's Country")
       tree.insert(69, "Collateral Damage")
+    end
 
+    it "will return the health of the tree" do
       expect(tree.health(0)).to eq([[98, 7, 100]])
       expect(tree.health(1)).to eq([[58, 6, 85]])
       expect(tree.health(2)).to eq([[36, 2, 28], [93, 3, 42]])
+    end
+
+    describe "helper methods" do
+      describe "#count_nodes_below" do
+        it "can return node count from a certain node" do
+          expect(tree.count_nodes_below(tree.head)).to eq(7)
+          tree.node_count = 0
+          expect(tree.count_nodes_below(tree.head.left_node)).to eq(6)
+        end
+      end
+
+      describe "#get_nodes_at_level" do
+        it "can receive a tree level and get all nodes on that level" do
+          expect(tree.get_nodes_at_level(0)).to eq(tree.head)
+          expect(tree.get_nodes_at_level(1)).to eq(tree.left)
+        end
+      end
     end
   end
 end
