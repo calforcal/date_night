@@ -1,10 +1,12 @@
 class BinarySearchTree
   attr_reader :head
+  attr_accessor :node_count
   def initialize
     @head = nil
     @level = 0
     @max_num = 0
     @min_num = 0
+    @node_count = 0
   end
 
   def insert(score, title)
@@ -83,6 +85,18 @@ class BinarySearchTree
     return count
   end
 
+  def health(level)
+    @node_count = 0
+    total_nodes = count_nodes_below(@head)
+    nodes = get_nodes_at_level(@head, 0, level)
+    nodes.map do |node|
+      @node_count = 0
+      child_nodes = count_nodes_below(node)
+      percent = (child_nodes / total_nodes.to_f) * 100
+      [node.score, child_nodes, percent.to_i]
+    end
+  end
+
   def find_bottom(current_node, new_node)
     while current_node != nil
       if current_node.score > new_node.score
@@ -104,6 +118,22 @@ class BinarySearchTree
     node_array << { node.title => node.score }
     if node.left_node.nil? then node_array else node_array.prepend(collect_nodes(node.left_node)) end 
     if node.right_node.nil? then node_array else node_array << collect_nodes(node.right_node) end
+    node_array.flatten
+  end
+
+  def count_nodes_below(starting_node)
+    if starting_node.nil? then return else @node_count += 1 end
+    if starting_node.left_node.nil? then else @node_count + count_nodes_below(starting_node.left_node) end
+    if starting_node.right_node.nil? then else @node_count + count_nodes_below(starting_node.right_node) end
+    @node_count
+  end
+
+  def get_nodes_at_level(starting_node, start_level=0, target_level)
+    node_array = []
+    if target_level == 0 then return node_array << @head else end
+    if target_level == start_level then node_array << starting_node else end
+    if starting_node.left_node.nil? then else node_array << get_nodes_at_level(starting_node.left_node, start_level + 1, target_level) end
+    if starting_node.right_node.nil? then else node_array << get_nodes_at_level(starting_node.right_node, start_level + 1, target_level) end
     node_array.flatten
   end
 end
