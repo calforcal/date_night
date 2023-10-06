@@ -155,8 +155,8 @@ RSpec.describe BinarySearchTree do
 
       describe "#get_nodes_at_level" do
         it "can receive a tree level and get all nodes on that level" do
-          expect(tree.get_nodes_at_level(0)).to eq(tree.head)
-          expect(tree.get_nodes_at_level(1)).to eq(tree.left)
+          expect(tree.get_nodes_at_level(tree.head, 0, 0)).to eq([tree.head])
+          expect(tree.get_nodes_at_level(tree.head, 0, 1)).to eq([tree.head.left_node])
         end
       end
     end
