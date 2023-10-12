@@ -124,43 +124,6 @@ RSpec.describe BinarySearchTree do
     end
   end
 
-  # describe "#health observability" do
-  #   before(:each) do
-  #     tree.insert(98, "Animals United")
-  #     tree.insert(58, "Armageddon")
-  #     tree.insert(36, "Bill & Ted's Bogus Journey")
-  #     tree.insert(93, "Bill & Ted's Excellent Adventure")
-  #     tree.insert(86, "Charlie's Angels")
-  #     tree.insert(88, "Charlie's Angels")
-  #     tree.insert(38, "Charlie's Country")
-  #     tree.insert(69, "Collateral Damage")
-  #     tree.insert(99, "Collateral Damage")
-  #   end
-
-  #   it "prints out a log of the functions happening within #count_nodes_below" do
-  #     tree.node_count = []
-  #     puts tree.count_nodes_below(tree.head)
-  #     # Returns 7 scores (count of 7, is correct)
-  #     # Traverses left nodes in tree, when its at the bottom and left node is NULL, checks right node value, the right nodes left/right
-  #     # As it bubbles back up the tree there is an unkown return [...] (I assume it is the stored value from recursion, basically signifying a jump in level)
-  #     # EDIT: realized that having a global variable in the Tree Class was messing with the return value
-  #     # Changed it to match the get_nodes method and it seems to have really simplified the whole operation
-  #     # I'm fairly certain that the [...] was actually the whole array being returned inadvertently, a result of poor recursion.
-  #   end
-
-  #   it "prints out a log of the function within #get_nodes_at_level" do
-  #     new_tree = BinarySearchTree.new
-  #     new_tree.load('./data/movies.txt')
-  #     new_tree.operations_performed = 0
-  #     puts new_tree.get_nodes_at_level(new_tree.head, 0, 2)
-  #     puts new_tree.operations_performed
-  #     # OBSERVATIONS
-  #     # No 'bubbling up' / unknown returns from this method. Everything is accounted for. (seemingly)
-  #     # Added a guard statement that reduced the operations performed from a strict 297, to much, dependent on level searching for.
-  #     # 
-  #   end
-  # end
-
   # NEW TEST BLOCK TO STOP BEFORE EACH
 
   describe "#health" do
@@ -198,4 +161,75 @@ RSpec.describe BinarySearchTree do
       end
     end
   end
+
+  describe "Tree Shape Methods" do
+    before(:each) do
+      tree.insert(98, "Animals United")
+      tree.insert(58, "Armageddon")
+      tree.insert(36, "Bill & Ted's Bogus Journey")
+      tree.insert(93, "Bill & Ted's Excellent Adventure")
+      tree.insert(86, "Charlie's Angels")
+      tree.insert(38, "Charlie's Country")
+      tree.insert(69, "Collateral Damage")
+    end
+
+    #Leaves represents the # of nodes that have NO left or right value
+    describe "#leaves" do
+      it "returns the numbers of leaves in the tree" do
+        expect(tree.leaves).to eq(2)
+
+        tree.insert(37, "New Node")
+
+        expect(tree.leaves).to eq(3)
+      end
+    end
+
+    #Height represents the maximum depth of the tree - AKA - the levels or 'rows' deep
+    describe "#height" do
+      it "returns the number of levels in the tree" do
+        expect(tree.height).to eq(5)
+
+        tree.insert(70, "New Node")
+
+        expect(tree.height).to eq(6)
+      end
+    end
+  end
+
+    # describe "#health observability" do
+  #   before(:each) do
+  #     tree.insert(98, "Animals United")
+  #     tree.insert(58, "Armageddon")
+  #     tree.insert(36, "Bill & Ted's Bogus Journey")
+  #     tree.insert(93, "Bill & Ted's Excellent Adventure")
+  #     tree.insert(86, "Charlie's Angels")
+  #     tree.insert(88, "Charlie's Angels")
+  #     tree.insert(38, "Charlie's Country")
+  #     tree.insert(69, "Collateral Damage")
+  #     tree.insert(99, "Collateral Damage")
+  #   end
+
+  #   it "prints out a log of the functions happening within #count_nodes_below" do
+  #     tree.node_count = []
+  #     puts tree.count_nodes_below(tree.head)
+  #     # Returns 7 scores (count of 7, is correct)
+  #     # Traverses left nodes in tree, when its at the bottom and left node is NULL, checks right node value, the right nodes left/right
+  #     # As it bubbles back up the tree there is an unkown return [...] (I assume it is the stored value from recursion, basically signifying a jump in level)
+  #     # EDIT: realized that having a global variable in the Tree Class was messing with the return value
+  #     # Changed it to match the get_nodes method and it seems to have really simplified the whole operation
+  #     # I'm fairly certain that the [...] was actually the whole array being returned inadvertently, a result of poor recursion.
+  #   end
+
+  #   it "prints out a log of the function within #get_nodes_at_level" do
+  #     new_tree = BinarySearchTree.new
+  #     new_tree.load('./data/movies.txt')
+  #     new_tree.operations_performed = 0
+  #     puts new_tree.get_nodes_at_level(new_tree.head, 0, 2)
+  #     puts new_tree.operations_performed
+  #     # OBSERVATIONS
+  #     # No 'bubbling up' / unknown returns from this method. Everything is accounted for. (seemingly)
+  #     # Added a guard statement that reduced the operations performed from a strict 297, to much, dependent on level searching for.
+  #     # 
+  #   end
+  # end
 end
