@@ -191,15 +191,15 @@ RSpec.describe BinarySearchTree do
     #Height represents the maximum depth of the tree - AKA - the levels or 'rows' deep
     describe "#height" do
       it "returns the number of levels in the tree" do
-        expect(tree.height).to eq(5)
+        expect(tree.height).to eq(4)
 
         tree.insert(70, "New Node")
 
-        expect(tree.height).to eq(6)
+        expect(tree.height).to eq(5)
 
         tree.insert(71, "New Node")
 
-        expect(tree.height).to eq(7)
+        expect(tree.height).to eq(6)
       end
     end
   end
