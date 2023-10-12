@@ -196,6 +196,10 @@ RSpec.describe BinarySearchTree do
         tree.insert(70, "New Node")
 
         expect(tree.height).to eq(6)
+
+        tree.insert(71, "New Node")
+
+        expect(tree.height).to eq(7)
       end
     end
   end
