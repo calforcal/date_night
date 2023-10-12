@@ -12,37 +12,40 @@ class BinarySearchTree
 
   def insert(score, title)
     new_node = Node.new(score, title)
-    placed = false
     current_node = @head
     @level = 0
 
+    place_node(new_node, current_node)
+    return @level
+  end
+
+  def place_node(new_node, starting_node)
+    placed = false
     while placed == false
       if @head.nil?
         @head = new_node
         placed = true
-        break
       else
-        last_node = find_bottom(current_node, new_node)
+        last_node = find_bottom(starting_node, new_node)
         last_node.score > new_node.score ? last_node.left_node = new_node : last_node.right_node = new_node
         placed = true
-        break
       end
     end
-    return @level
   end
 
   def include?(num)
-    current_node = @head
     @level = 0
-    while current_node != nil
-      if current_node.score == num
-        return true
-      else
-        current_node.score > num ? current_node = current_node.left_node : current_node = current_node.right_node
-        @level += 1
-      end
+    node_finder(@head, num)
+  end
+
+  def node_finder(current_node, num)
+    return false if current_node.nil?
+    if current_node.score == num
+      return true
+    else
+      @level += 1
+      current_node.score > num ? node_finder(current_node.left_node, num) : node_finder(current_node.right_node, num)
     end
-    return false
   end
 
   def depth_of(num)
