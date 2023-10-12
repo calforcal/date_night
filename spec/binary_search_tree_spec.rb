@@ -204,6 +204,35 @@ RSpec.describe BinarySearchTree do
     end
   end
 
+  describe "Node Deletion" do
+    before(:each) do
+      tree.insert(98, "Animals United")
+      tree.insert(58, "Armageddon")
+      tree.insert(36, "Bill & Ted's Bogus Journey")
+      tree.insert(93, "Bill & Ted's Excellent Adventure")
+      tree.insert(86, "Charlie's Angels")
+      tree.insert(38, "Charlie's Country")
+      tree.insert(69, "Collateral Damage")
+    end
+
+    describe "#delete" do
+      it "can delete a certain score from the tree" do
+        expect(tree.delete(38)).to eq(38)
+      end
+
+      it "doesn't delete the child nodes of the deleted node" do
+        expect(tree.depth_of(38)).to eq(3)
+
+        expect(tree.delete(36)).to eq(36)
+
+        expect(tree.include?(36)).to eq(false)
+        expect(tree.include?(38)).to eq(true)
+
+        expect(tree.depth_of(38)).to eq(2)
+      end
+    end
+  end
+
     # describe "#health observability" do
   #   before(:each) do
   #     tree.insert(98, "Animals United")
