@@ -101,6 +101,14 @@ class BinarySearchTree
     end
   end
 
+  def leaves
+    get_leaves(@head).size
+  end
+
+  def height
+    get_height(@head, 0)
+  end
+
   def find_bottom(current_node, new_node)
     while current_node != nil
       if current_node.score > new_node.score
@@ -140,6 +148,28 @@ class BinarySearchTree
     if starting_node.left_node.nil? then else node_array << get_nodes_at_level(starting_node.left_node, start_level + 1, target_level) end
     if starting_node.right_node.nil? then else node_array << get_nodes_at_level(starting_node.right_node, start_level + 1, target_level) end
     node_array.flatten
+  end
+
+  def get_leaves(starting_node)
+    node_array = []
+    if starting_node.left_node.nil? && starting_node.right_node.nil?
+      node_array << starting_node
+    else
+      starting_node.right_node.nil? ? node_array : node_array << get_leaves(starting_node.right_node)
+      starting_node.left_node.nil? ? node_array : node_array << get_leaves(starting_node.left_node)
+    end
+    node_array.flatten
+  end
+
+  def get_height(starting_node, start_level)
+    branch_ends = []
+    if starting_node.left_node.nil? && starting_node.right_node.nil?
+      branch_ends << start_level
+    else
+      starting_node.right_node.nil? ? branch_ends : branch_ends << get_height(starting_node.right_node, start_level + 1)
+      starting_node.left_node.nil? ? branch_ends : branch_ends << get_height(starting_node.left_node, start_level + 1)
+    end
+    branch_ends.flatten.max
   end
 
   # def count_nodes_below(starting_node)
