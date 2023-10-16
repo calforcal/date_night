@@ -35,17 +35,44 @@ class BinarySearchTree
 
   def include?(num)
     @level = 0
-    node_finder(@head, num)
+    node = node_finder(@head, num)
+    node.nil? ? false : true
   end
 
   def delete(num)
+    node_above = get_node_above(@head, num)
+    deletion = node_finder(@head, num)
+
+    if deletion.left_node.nil? && deletion.right_node.nil?
+      node_above.score > deletion.score ? node_above.left_node = nil : node_above.right_node = nil
+      num
+    elsif deletion.left_node.nil? || deletion.right_node.nil?
+      one_child_deletion(node_above, deletion) ? num : "Could not delete node."
+    else
+      two_child_deletion(node_above, delete_node)
+    end
+  end
+
+  def one_child_deletion(node_above, delete_node)
+    child = delete_node.left_node.nil? ? delete_node.right_node : delete_node.left_node
+    if node_above.score > delete_node.score
+      node_above.left_node = child
+      return true
+    else
+      node_above.right_node = child
+      return true
+    end
+    return false
+  end
+
+  def two_child_deletion(node_above, delete_node)
 
   end
 
   def node_finder(current_node, num)
-    return false if current_node.nil?
+    return nil if current_node.nil?
     if current_node.score == num
-      return true
+      return current_node
     else
       @level += 1
       current_node.score > num ? node_finder(current_node.left_node, num) : node_finder(current_node.right_node, num)
