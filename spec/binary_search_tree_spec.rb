@@ -230,6 +230,33 @@ RSpec.describe BinarySearchTree do
 
         expect(tree.depth_of(38)).to eq(2)
       end
+
+      it "properly rewires the tree when their are two children of the deleted node" do
+        expect(tree.depth_of(38)).to eq(3)
+        expect(tree.delete(58)).to eq(58)
+
+        expect(tree.include?(58)).to eq(false)
+        expect(tree.depth_of(38)).to eq(1)
+        node = tree.node_finder(tree.head, 38)
+
+        expect(node.left_node.score).to eq(36)
+        expect(node.right_node.score).to eq(93)
+      end
+
+      it "properly rewires with a deeper tree" do
+        tree.insert(23, "UOENO")
+        tree.insert(37, "Mac and Cheese")
+        tree.insert(46, "Sandwich")
+
+        expect(tree.depth_of(46)).to eq(4)
+        expect(tree.delete(58)).to eq(58)
+        expect(tree.include?(58)).to eq(false)
+        expect(tree.depth_of(46)).to eq(1)
+        node = tree.node_finder(tree.head, 46)
+
+        expect(node.left_node.score).to eq(36)
+        expect(node.right_node.score).to eq(93)
+      end
     end
 
     describe "#delete helper method" do
