@@ -38,6 +38,10 @@ class BinarySearchTree
     node_finder(@head, num)
   end
 
+  def delete(num)
+
+  end
+
   def node_finder(current_node, num)
     return false if current_node.nil?
     if current_node.score == num
@@ -45,6 +49,15 @@ class BinarySearchTree
     else
       @level += 1
       current_node.score > num ? node_finder(current_node.left_node, num) : node_finder(current_node.right_node, num)
+    end
+  end
+
+  def get_node_above(starting_node, num, parent=nil)
+    return parent if starting_node.nil?
+    if starting_node.score == num
+      return parent
+    else
+      starting_node.score > num ? get_node_above(starting_node.left_node, num, starting_node) : get_node_above(starting_node.right_node, num, starting_node)
     end
   end
 
