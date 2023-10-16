@@ -49,7 +49,7 @@ class BinarySearchTree
     elsif deletion.left_node.nil? || deletion.right_node.nil?
       one_child_deletion(node_above, deletion) ? num : "Could not delete node."
     else
-      two_child_deletion(node_above, delete_node)
+      two_child_deletion(node_above, deletion) ? num : "Could not delete node."
     end
   end
 
@@ -66,7 +66,24 @@ class BinarySearchTree
   end
 
   def two_child_deletion(node_above, delete_node)
-
+    if delete_node.score > @head.score
+      leaf = get_leaves(delete_node.left_node).max { |node| node.score }
+      leaf_parent = get_node_above(@head, leaf.score)
+      leaf_parent.left_node = nil
+      node_above.right_node = leaf
+      leaf.left_node = delete_node.left_node
+      leaf.right_node = delete_node.right_node
+      return true
+    else
+      leaf = get_leaves(delete_node.left_node).min { |node| node.score }
+      leaf_parent = get_node_above(@head, leaf.score)
+      leaf_parent.right_node = nil
+      node_above.left_node = leaf
+      leaf.left_node = delete_node.left_node
+      leaf.right_node = delete_node.right_node
+      return true
+    end
+    return false
   end
 
   def node_finder(current_node, num)
