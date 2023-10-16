@@ -204,6 +204,78 @@ RSpec.describe BinarySearchTree do
     end
   end
 
+  describe "Node Deletion" do
+    before(:each) do
+      tree.insert(98, "Animals United")
+      tree.insert(58, "Armageddon")
+      tree.insert(36, "Bill & Ted's Bogus Journey")
+      tree.insert(93, "Bill & Ted's Excellent Adventure")
+      tree.insert(86, "Charlie's Angels")
+      tree.insert(38, "Charlie's Country")
+      tree.insert(69, "Collateral Damage")
+    end
+
+    describe "#delete" do
+      it "can delete a certain score from the tree" do
+        expect(tree.delete(38)).to eq(38)
+      end
+
+      it "doesn't delete the child nodes of the deleted node" do
+        expect(tree.depth_of(38)).to eq(3)
+
+        expect(tree.delete(36)).to eq(36)
+
+        expect(tree.include?(36)).to eq(false)
+        expect(tree.include?(38)).to eq(true)
+
+        expect(tree.depth_of(38)).to eq(2)
+      end
+
+      it "properly rewires the tree when their are two children of the deleted node" do
+        expect(tree.depth_of(38)).to eq(3)
+        expect(tree.delete(58)).to eq(58)
+
+        expect(tree.include?(58)).to eq(false)
+        expect(tree.depth_of(38)).to eq(1)
+        node = tree.node_finder(tree.head, 38)
+
+        expect(node.left_node.score).to eq(36)
+        expect(node.right_node.score).to eq(93)
+      end
+
+      it "properly rewires with a deeper tree" do
+        tree.insert(23, "UOENO")
+        tree.insert(37, "Mac and Cheese")
+        tree.insert(46, "Sandwich")
+
+        expect(tree.depth_of(46)).to eq(4)
+        expect(tree.delete(58)).to eq(58)
+        expect(tree.include?(58)).to eq(false)
+        expect(tree.depth_of(46)).to eq(1)
+        node = tree.node_finder(tree.head, 46)
+
+        expect(node.left_node.score).to eq(36)
+        expect(node.right_node.score).to eq(93)
+      end
+    end
+
+    describe "#delete helper method" do
+      describe "#get_node_above" do
+        it "returns the node above the node we are looking to delete" do
+          node = tree.get_node_above(tree.head, 38)
+          expect(node.score).to eq(36)
+        end
+      end
+
+      describe "#node_finder" do
+        it "can find a certain node within the tree" do
+          node = tree.node_finder(tree.head, 38)
+          expect(node.score).to eq(38) 
+        end
+      end
+    end
+  end
+
     # describe "#health observability" do
   #   before(:each) do
   #     tree.insert(98, "Animals United")
