@@ -239,6 +239,13 @@ RSpec.describe BinarySearchTree do
           expect(node.score).to eq(36)
         end
       end
+
+      describe "#node_finder" do
+        it "can find a certain node within the tree" do
+          node = tree.node_finder(tree.head, 38)
+          expect(node.score).to eq(38) 
+        end
+      end
     end
   end
 
