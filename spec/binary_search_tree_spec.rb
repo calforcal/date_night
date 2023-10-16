@@ -231,6 +231,15 @@ RSpec.describe BinarySearchTree do
         expect(tree.depth_of(38)).to eq(2)
       end
     end
+
+    describe "#delete helper method" do
+      describe "#get_node_above" do
+        it "returns the node above the node we are looking to delete" do
+          node = tree.get_node_above(tree.head, 38)
+          expect(node.score).to eq(36)
+        end
+      end
+    end
   end
 
     # describe "#health observability" do
