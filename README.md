@@ -59,6 +59,19 @@ In your terminal run the following commands to clone the repositories:
                              16    92
                                \
                                 50
+    
+#### How it works:
+
+<p>
+
+At a high level, the node insertion follows a basic decision making process: If the ```new_node``` , is greater than the ```head_node``` , it is placed on the right side of the tree. If less than - it's placed on the left side of the tree. It moves down the tree following this process, until it finds a node that has room in its ```left_node``` or ```right_node``` .
+
+Digging deeper into my implementation, I have deployed two helper methods that aid in the insert functionality. The method ```place_node``` abstracts away the decision making from the ```insert``` method, deciding when to place the node (when it reaches the bottom of the tree).
+
+Further abstraction takes place within the ```place_node``` by utilizing a ```find_bottom``` method. This method traverses the tree, by comparing nodes, and choosing whether to go deeper left / right - while keeping track of the level as it goes.
+
+Combined, we are able to insert a new node and return the level it was inserted at!
+</p>
 
 </details>
 
@@ -71,6 +84,16 @@ In your terminal run the following commands to clone the repositories:
 
     Input: tree.include?(100)
       Output: # => false
+
+#### How it works:
+
+<p>
+
+The ```include``` method abstracts most of it's functionality away to another method called ```node_finder```.
+
+```node_finder``` seemed like a very useful method that might be able to be reused elsewhere in the BST. Using recursion, it receives a ```current_node``` and ```num``` - (the score its searching for). If the ```current_node.score``` matches the ```num``` it returns the ```current_node``` otherwise if ```current_node``` is ```nil``` it returns ```nil```. If there are still nodes left to search - the method calls itself, deciding where to go next based on if the score its searching for is greater than or less than the ```current_node.score``` , which continues until it finds the node or reaches the bottom of the tree.
+
+</p>
 
 </details>
 
@@ -91,6 +114,16 @@ In your terminal run the following commands to clone the repositories:
                                \
               Level: 2          50
 
+#### How it works:
+
+<p>
+
+In the ```depth_of``` method - we were actually able to recycle the ```.include?``` method by adding just a few lines of code. We first zero-out the ```@level``` of the tree, in the ```.include?``` method, and then when we search for the node with ```node_finder```, it updates the ```@level``` as it searches!
+
+So in the ```depth_of``` method, if it found the node, we return ```@level``` or if not, we return ```nil```.
+
+</p>
+
 </details>
 
 ### Max and Min
@@ -102,6 +135,14 @@ In your terminal run the following commands to clone the repositories:
 
     Input: tree.min
       Output: # => { "Sharknado" =>16 }
+
+#### How it works:
+
+<p>
+
+```.max``` and ```.min``` work the same way - but the inverse of eachother. First, we set the ```@head``` as both the ```current_node``` and ```MIN/MAX``` num. We then make our way to the bottom of the left or right side of the tree to find the most extreme number in either case, and return that. 
+
+</p>
 
 </details>
 
@@ -115,6 +156,20 @@ In your terminal run the following commands to clone the repositories:
                { "Dunkirk"=>50 },
                { "Max Keebler's Big Move"=>61 },
                { "Eras Tour the Movie"=>92 }]
+
+#### How it works:
+
+<p>
+
+The ```sort``` method utilizes a helper method called ```collect_nodes``` to help it retrieve all of the nodes, in order from lowest to highest score.
+
+```collect_nodes``` is where all of the logic for this method is housed - it begins with an empty array, where each node will be 'collected'. If the ```starting_node``` is `nil` it returns, meaning there is no more nodes to check on this branch.
+
+If the node is not `nil`, then it will collect that node in `node_array`. The function will then be called recursively on the `left_node` and `right_node` - the `left_node`'s will be `prepended` since each `left_node` will be smaller than the previous node. And the opposite for `righr_node`'s, each of those will be `appended` - added to the back of the array, in order to keep them sorted.
+
+Ultimately the array will be returned and as the recursion 'bubbles up' the original function call will hand back all of the nodes it found in one, sorted array.
+
+</p>
 
 </details>
 
