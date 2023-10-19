@@ -271,6 +271,16 @@ Once we've returned the nodes from a certain level, we `.map` each one into the 
     Input: tree.leaves
       Output: 2
 
+#### How it works:
+
+<p>
+
+The `leaves` method is fairly straight-forward, it utilizes one other helper method the essentially houses all of the functionality.
+
+The `get_leaves` method takes in a starting node, and proceeds to traverse the tree looking for nodes that have a `left_node` and `right_node` of `nil`. When it finds one, it pushes it to a collector array, and then as the recursion bubbles up, all of the leaves are returned.
+
+</p>
+
 </details>
 
 ### Height
@@ -279,6 +289,14 @@ Once we've returned the nodes from a certain level, we `.map` each one into the 
 
     Input: tree.height
       Output: 4
+
+#### How it works:
+
+<p>
+
+The `height` method is also fairly simple - it traverses the tree recursively, searching for the end of each branch - and as it does so, it accepts a parameter called `start_level`, which is used to keep track of the level of the nodes it finds at the end of each branch. Once it has collected the end of each branch, it simply returns the maximum numbed, which indicates the height (or depth) of the tree.
+
+</p>
 
 </details>
 
