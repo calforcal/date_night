@@ -77,6 +77,12 @@ Combined, we are able to insert a new node and return the level it was inserted 
 
 ### Include?
 
+<p>
+
+The `include?` method takes in a `score` or num, and returns `true` or `false` depending on whether or not a node with that `score` exists within the tree.
+
+</p>
+
 <details close>
 
     Input: tree.include?(61)
@@ -98,6 +104,12 @@ The ```include``` method abstracts most of it's functionality away to another me
 </details>
 
 ### Depth Of
+
+<p>
+
+The `depth_of` method takes in a `score` or num as an argument, and if the tree contains that `score` it returns the `level` of that node, otherwise it returns `nil`.
+
+</p>
 
 <details close>
 
@@ -128,6 +140,12 @@ So in the ```depth_of``` method, if it found the node, we return ```@level``` or
 
 ### Max and Min
 
+<p>
+
+The `max` and `min` methods work the same way but provide opposite values. They take no argument and return either the highest or lowest score, respectively.
+
+</p>
+
 <details close>
 
     Input: tree.max
@@ -147,6 +165,12 @@ So in the ```depth_of``` method, if it found the node, we return ```@level``` or
 </details>
 
 ### Sort
+
+<p>
+
+The `sort` method takes in no arguments. It returns all of the nodes within the tree as an array in the following key/value pair format: `"{ title"=>score }`.
+
+</p>
 
 <details close>
 
@@ -174,6 +198,12 @@ Ultimately the array will be returned and as the recursion 'bubbles up' the orig
 </details>
 
 ### Load
+
+<p>
+
+The `load` method takes in one argument, a file path to a `.txt` file. It reads the `.txt` file and inserts each line as a node within the tree and returns the number of nodes it inserted.
+
+</p>
 
 <details close>
 
@@ -239,6 +269,18 @@ Finally once all nodes have been inserted - it returns a count of the number of 
 
 ### Health
 
+<p>
+
+The `health` method takes in one argument `level`. The return value is each node at that `level`, and with that - it returns two other values signifying the health of the tree:
+
+The first is the number of nodes that are the children of the node returned.
+
+The second is the percentage of nodes that are the child of the returned node.
+
+These metrics are helpful in determing the balance of the tree - i.e is there an equal number of nodes on each side of the tree or has it become unbalanced somewhere.
+
+</p>
+
 <details close>
 
     Input: tree.health(0)
@@ -266,6 +308,8 @@ Once we've returned the nodes from a certain level, we `.map` each one into the 
 
 ### Leaves
 
+The `leaves` method takes in no arguments. It returns the number of leaves that are in the tree. A leaf being a node that has neither a `left_node` or a `right_node`.
+
 <details close>
 
     Input: tree.leaves
@@ -284,6 +328,8 @@ The `get_leaves` method takes in a starting node, and proceeds to traverse the t
 </details>
 
 ### Height
+
+The `height` method takes in no arguments. It returns the height or depth of the tree. The height is the number of levels in the tree.
 
 <details close>
 
