@@ -252,11 +252,13 @@ Finally once all nodes have been inserted - it returns a count of the number of 
 
 <p>
 
-The `load` method is essentially the bulk version of `insert`. It receives the path a `.txt` file, reads each line of the file, and performs some basic functionality to format each line.
+This method has several helper methods implemented in order to abstract away functionality from the main method call. The first action of the `health` method is to get a count of the total number of nodes below a given node. We have called this `count_nodes_below` - which recursively traverses the tree, giving a +1 count to `node_count` each time it finds a non-nil node.
 
-One its formatted in a way that can be iterated over - each `score` / `title` pair is insterted using the `insert` method, only if the score doesn't already exist within the tree.
+This method was made to accept any node in the tree and count the nodes below it, so that it could be used to count every node in tree (starting with the `head`) and also a node in the middle of the tree.
 
-Finally once all nodes have been inserted - it returns a count of the number of new nodes inserted.
+The next helper method utilized is `get_nodes_at_level`. This method uses the given input of level, and traverses the tree recursively, only returning the nodes when the `target_level` equals the `start_level`. A guard statement checks if the `start_level` is greater than the `target_level` - if it is, the method returns and the recursion for this branch stops. Once the search is completed, we are returned only the nodes from the given `target_level`.
+
+Once we've returned the nodes from a certain level, we `.map` each one into the format required for the return which is the nodes `score`, the number of nodes below it, and the percentage of nodes below it.
 
 </p>
 
