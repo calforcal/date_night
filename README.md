@@ -197,14 +197,24 @@ Ultimately the array will be returned and as the recursion 'bubbles up' the orig
                             /  \     \
                           10    41    84
 
+#### How it works:
+
+<p>
+
+The `load` method is essentially the bulk version of `insert`. It receives the path a `.txt` file, reads each line of the file, and performs some basic functionality to format each line.
+
+One its formatted in a way that can be iterated over - each `score` / `title` pair is insterted using the `insert` method, only if the score doesn't already exist within the tree.
+
+Finally once all nodes have been inserted - it returns a count of the number of new nodes inserted.
+
+</p>
+
 </details>
 
 <br>
 <br>
 
 ## Assuming these inputs for the enclosed inputs for the remainder of the examples
-
-<details close>
 
     tree.insert(98, "Animals United")
     tree.insert(58, "Armageddon")
@@ -226,7 +236,6 @@ Ultimately the array will be returned and as the recursion 'bubbles up' the orig
                                 /
                                69  
 
-</details>
 
 ### Health
 
@@ -238,6 +247,18 @@ Ultimately the array will be returned and as the recursion 'bubbles up' the orig
       Output: [[58, 6, 85]]
     Input: tree.health(2)
       Output: [[36, 2, 28], [93, 3, 42]]
+
+#### How it works:
+
+<p>
+
+The `load` method is essentially the bulk version of `insert`. It receives the path a `.txt` file, reads each line of the file, and performs some basic functionality to format each line.
+
+One its formatted in a way that can be iterated over - each `score` / `title` pair is insterted using the `insert` method, only if the score doesn't already exist within the tree.
+
+Finally once all nodes have been inserted - it returns a count of the number of new nodes inserted.
+
+</p>
 
 </details>
 
