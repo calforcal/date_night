@@ -348,6 +348,8 @@ The `height` method is also fairly simple - it traverses the tree recursively, s
 
 ### Delete
 
+The `delete` method takes in one argument - `score` - which is the score of the node to be deleted from the tree. If the node is deleted, the `score` is returned back.
+
 <details close>
 
     Input: tree.delete(38)
