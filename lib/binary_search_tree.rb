@@ -66,21 +66,23 @@ class BinarySearchTree
   end
 
   def two_child_deletion(node_above, delete_node)
-    if delete_node.score > @head.score
-      leaf = get_leaves(delete_node.left_node).max { |node| node.score }
-      leaf_parent = get_node_above(@head, leaf.score)
-      leaf_parent.left_node = nil
-      node_above.right_node = leaf
-      leaf.left_node = delete_node.left_node
-      leaf.right_node = delete_node.right_node
+    if delete_node.score > node_above.score
+      successor_score = collect_nodes(delete_node.left_node).map { |node| node.map { |k,v| v } }.max[0]
+      successor = node_finder(delete_node.left_node, successor_score)
+      successor_parent = get_node_above(@head, successor.score)
+      successor_parent.right_node = successor.right_node
+      node_above.right_node = successor
+      successor.left_node = delete_node.left_node
+      successor.right_node = delete_node.right_node
       return true
     else
-      leaf = get_leaves(delete_node.left_node).min { |node| node.score }
-      leaf_parent = get_node_above(@head, leaf.score)
-      leaf_parent.right_node = nil
-      node_above.left_node = leaf
-      leaf.left_node = delete_node.left_node
-      leaf.right_node = delete_node.right_node
+      successor_score = collect_nodes(delete_node.left_node).map { |node| node.map { |k,v| v } }.max[0]
+      successor = node_finder(delete_node.left_node, successor_score)
+      successor_parent = get_node_above(@head, successor.score)
+      successor_parent.right_node = successor.right_node
+      node_above.left_node = successor
+      successor.left_node = delete_node.left_node
+      successor.right_node = delete_node.right_node
       return true
     end
     return false
