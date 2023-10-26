@@ -348,9 +348,42 @@ The `height` method is also fairly simple - it traverses the tree recursively, s
 
 ### Delete
 
+The `delete` method takes in one argument - `score` - which is the score of the node to be deleted from the tree. If the node is deleted, the `score` is returned back.
+
 <details close>
 
     Input: tree.delete(38)
       Output: 38
+
+#### How it works:
+
+<p>
+
+The `delete` method is the most complicated of all, due to its tree restructuring upon deleting a node. There are 3 different cases a tree must consider when it is deleting a node. A node with 0 children, 1 children, or 2 children.
+
+First: the `delete` method employs two helper methods to start the process. `get_node_above` is used to find the parent node of the node we're looking to delete. It recursively searches the tree looking for the `score` of the node it needs to delete. Each time the method is called recursively, we pass the `parent` as an argument to keep track as we go down the levels. When it finds the score, it returns the `parent`.
+
+It the reuses functionality from the `include?` method by using its' helper method - `node_finder`. Which returns us the node that we are looking to delete.
+
+Now we save both the `parent` and the `deletion` node for further use in the process.
+
+**Case 1**
+The first case is the simplest - deleting a node with no children. Once we have located the node, we check to ensure it has no children, and then we determine if it is the `left_node` or `right_node` of its parent. We then set the `left_node` or `right_node` of the `parent` to `nil` respectively. Done!
+
+**Case 2**
+If we have determined during our check that either the `left_node` OR (emphasis on the or) `right_node` of the `deletion` node is `nil`. We employ a helper method called `one_child_deletion`. It takes the `node_above` and `delete_node` as arguments. First step is saving the `child` we do not want to delete or lose to the garbage collector by misplacing it. We then determine if the `delete_node` was a `left_node` or `right_node` and depending on which - we set the `child` to the `left_node` or `right_node` of the `node_above` (parent). If the node was deleted `true` or `false` is returned so that the main function knows that it should indicate the node was deleted.
+
+**Case 3**
+This is the trickiest case of the 3. If we have determined (by process of elimination) that the `deletion` node has 2 children, we employ the `two_child_deletion` helper method. It also takes in the arguments of `node_above` and `delete_node`.
+
+The first decision by the helper method is determining if the `delete_node.score` is `>` OR `<` the `node_above.score`. If it's greater, we find the next smallest score in the tree. We do this be collecting all of the nodes to the left of the `delete_node` and returning the maximum, the `successor`. Since it is the LARGEST from the left side, all nodes to its left will be smaller than the `successor` and since it's from the left side of the `delete_node` - we know all nodes to the right will be greater than the `successor`.
+
+We then find the `successor_parent`, to begin our restructuring. If the `delete_node` is a `right_node`, we set the `successor_parent.right_node` to `successor.right_node` because we want the tree lineage to continue. The `successor_parent.left_node` remains unchanged.
+
+The `node_above.right_node` (above the node we're deleting) then becomes the `successor`. The `successor.left_node` and `successor.right_node` then become the `delete_node` left and right node, respectively.
+
+This process runs exactly the same on when replacing `left_nodes` in the tree. The only difference being that the `node_above.left_node` becoming the `successor` VS the the `right_node` in the above example.
+
+</p>
 
 </details>
